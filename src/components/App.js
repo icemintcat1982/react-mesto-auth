@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import { api } from "../utils/Api";
 import Footer from "./Footer";
@@ -123,26 +123,28 @@ function App() {
             });
     }, []);
 
+    const handleTokenCheck = useCallback(() => {
+        const jwt = localStorage.getItem('jwt');
+        if(jwt) {
+           auth.getContent(jwt)
+           .then((res) => {
+               if(res) {
+                   setLogIn(true)
+                   setEmail(res.data.email)
+                   navigate.push('/')
+               }
+           })
+           .catch((err) => {
+               console.log(err);
+        })
+           }
+       })
+       
     useEffect(() => {
         handleTokenCheck();
-    }, []);
+    }, [handleTokenCheck]);
 
-    const handleTokenCheck = () => {
-     const jwt = localStorage.getItem('jwt');
-     if(jwt) {
-        auth.getContent(jwt)
-        .then((res) => {
-            if(res) {
-                setLogIn(true)
-                setEmail(res.data.email)
-                navigate.push('/')
-            }
-        })
-        .catch((err) => {
-            console.log(err);
-     })
-        }
-    }
+
 
     const handleRegist = (password, email) => {
         auth.register(password, email)
