@@ -3,8 +3,8 @@ import AuthPage from "./AuthPage";
 
 function Register({ onRegister }) {
 
-const [email, setEmail] = React.useState('')
-const [password, setPassword] = React.useState('')
+const [email, setEmail] = useState('')
+const [password, setPassword] = useState('')
 
 function handleChange(evt) {
     const {value} = evt.target
@@ -13,7 +13,7 @@ function handleChange(evt) {
 
 function handleSumbit(evt) { 
     evt.preventDefault()
-    onRegister(email, password)
+    onRegister(password, email)
 }
 
 return (

@@ -13,7 +13,7 @@ function handleChange(evt) {
 
 function handleSumbit(evt) { 
     evt.preventDefault()
-    onAuth(email, password)
+    onAuth(password, email)
 }
 
 return (

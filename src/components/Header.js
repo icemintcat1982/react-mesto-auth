@@ -1,4 +1,5 @@
 import Logo from '../images/header_img1.png'
+
 function Header() {
 return(
     <header className="header">

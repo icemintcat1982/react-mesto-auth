@@ -9,7 +9,6 @@ import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import EditProfilePopup from "./EditProfilePopup";
 import EditAvatarPopup from "./EditAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
-import AuthPage from "./AuthPage";
 import Login from "./Login";
 import Register from "./Register";
 import ProtectedRoute from "./ProtectedRoute";
@@ -139,7 +138,7 @@ function App() {
         })
            }
        })
-       
+
     useEffect(() => {
         handleTokenCheck();
     }, [handleTokenCheck]);
@@ -199,7 +198,7 @@ function App() {
                     }/>
                     
                     <Route
-                    path="/sign-in"
+                    path="sign-up"
                     element={
                         <Register
                         isOpen={isEditProfilePopupOpen}
@@ -209,7 +208,7 @@ function App() {
 
                     
                     <Route
-                    path="/sign-up"
+                    path="sign-in"
                         element={
                             <Login
                             isOpen={isEditProfilePopupOpen}
