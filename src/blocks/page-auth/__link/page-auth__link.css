@@ -1,0 +1,14 @@
+.page-auth__link {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16.94px;
+    color: #ffffff;
+    text-align: center;
+    text-decoration: none;
+    transition: .2s;
+}
+
+.page-auth__link:hover {
+opacity: .6;
+cursor: pointer;
+}

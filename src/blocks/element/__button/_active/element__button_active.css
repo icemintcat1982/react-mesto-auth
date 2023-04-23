@@ -1,0 +1,4 @@
+.element__button_active {
+    background: url(../../../../images/heart_active_1.svg);
+    background-repeat: no-repeat;
+}

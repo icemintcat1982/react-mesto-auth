@@ -1,0 +1,20 @@
+.popup__input_auth {
+    min-height: 27px;
+    padding: 0;
+    border: none;
+    border-bottom: 2px solid #cccccc;
+    background-color: transparent;
+    box-sizing: border-box;
+    margin-bottom: 30px;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16.94px;
+}
+
+.popup__input_auth:last-of-type {
+    margin-bottom: 0;
+}
+
+.popup__input_auth::placeholder {
+    color: #cccccc;
+}

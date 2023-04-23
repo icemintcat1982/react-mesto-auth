@@ -1,0 +1,10 @@
+.popup__fieldset {
+    max-width: 358px;
+    padding: 0;
+    margin: 54px auto 15px;
+    border: none;
+}
+
+.popup__fieldset:last-child {
+    margin: 30px 0;
+}

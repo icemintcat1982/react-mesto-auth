@@ -1,0 +1,27 @@
+.page-auth__button {
+    width: 100%;
+    min-height: 50px;
+    margin-bottom: 15px;
+    margin-top: 216px;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 21.78px;
+    background-color: #ffffff;
+    color: #000000;
+    border: 0;
+    border-radius: 2px;
+    outline: 0;
+    transition: .2s;
+}
+
+.page-auth__button:hover {
+    opacity: .85;
+    cursor: pointer;
+}
+
+@media screen and (max-width:767px) {
+    .page-auth__button {
+        font-size: 14px;
+        line-height: 17px;
+    }
+}

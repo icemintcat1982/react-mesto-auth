@@ -1,0 +1,18 @@
+.profile__button_type_add {
+    width: 150px;
+    height: 50px;
+    border: 2px solid #FFFFFF;
+    background-image: url(../../../../images/plus.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    margin: auto;
+    margin-right: 0;
+}
+
+@media screen and (max-width:767px) {
+    .profile__button_type_add {
+        max-width: 282px;
+        width: 100%;
+    }
+    
+}
