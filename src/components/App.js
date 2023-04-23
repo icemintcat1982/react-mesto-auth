@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Route, useNavigate } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import { api } from "../utils/Api";
 import Footer from "./Footer";
 import Header from "./Header";
@@ -22,18 +22,18 @@ function App() {
 
     const navigate = useNavigate();
 
-    const [logIn, setLogIn] = React.useState(false);
-    const [email, setEmail] = React.useState('');
-    const [isInfoTooltipOpen, setIsInfoTooltipOpen] = React.useState(false);
-    const [message, setMessage] = React.useState({ imgResult: '', text: ''});
+    const [logIn, setLogIn] = useState(false);
+    const [email, setEmail] = useState('');
+    const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
+    const [message, setMessage] = useState({ imgResult: '', text: ''});
     const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] =
-        React.useState(false);
+        useState(false);
     const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] =
-        React.useState(false);
-    const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
-    const [selectedCard, setSelectedCard] = React.useState({});
-    const [cards, setCards] = React.useState([]);
-    const [currentUser, setCurrentUser] = React.useState({});
+       useState(false);
+    const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
+    const [selectedCard, setSelectedCard] = useState({});
+    const [cards, setCards] = useState([]);
+    const [currentUser, setCurrentUser] = useState({});
 
     const handleEditAvatarClick = () => {
         setIsEditAvatarPopupOpen(true);
@@ -179,7 +179,11 @@ function App() {
                 logIn={logIn}
                 email={email}
                 onLogOut={onLogOut} />
-                    <ProtectedRoute
+                <Routes>
+                    <Route
+                    path="/"
+                    element={
+                        <ProtectedRoute
                     exact path="/"
                     logIn={logIn}
                     component={Main}
@@ -190,19 +194,26 @@ function App() {
                     onCardLike={handleCardLike}
                     onCardDelete={handleCardDelete}
                     cards={cards} />
+                    }/>
+                    
                     <Route
-                    path="/sign-in">
+                    path="/sign-in"
+                    element={
                         <Register
                         isOpen={isEditProfilePopupOpen}
                         onRegister={handleRegist}
                         isInfoTooltipOpen={isInfoTooltipOpen}/>
-                    </Route>
+                    } />
+
+                    
                     <Route
-                    path="/sign-up">
-                        <Login
-                        isOpen={isEditProfilePopupOpen}
-                        onAuth={handleAuth}/>
-                    </Route>
+                    path="/sign-up"
+                        element={
+                            <Login
+                            isOpen={isEditProfilePopupOpen}
+                            onAuth={handleAuth}/>
+                        } />
+                    </Routes>
                 <Footer />
 
                 <InfoTooltip
