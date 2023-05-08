@@ -119,6 +119,7 @@ function App() {
             })
             .catch((err) => {
                 console.log(err);
+                
             });
     }, []);
 
@@ -126,21 +127,30 @@ function App() {
         const jwt = localStorage.getItem('jwt');
         if(jwt) {
            auth.getContent(jwt)
-           .then((res) => {
-               if(res) {
+           .then((userData) => {
+               if(userData) {
                    setLogIn(true)
-                   setEmail(res.data.email)
-                   navigate.push('/')
+                   setEmail(userData.data.email)
+                   navigate('/', { replace: true });
                }
            })
            .catch((err) => {
                console.log(err);
         })
            }
-       })
+       }, [navigate])
 
     useEffect(() => {
         handleTokenCheck();
+        logIn && 
+        Promise.all([api.getUserInfo(), api.getCards()])
+        .then(([userData, cardsData]) => {
+            setCurrentUser(userData);
+            setCards(cardsData);
+        })
+        .catch((err) => {
+            console.log(err)
+        })
     }, [handleTokenCheck]);
 
 
@@ -181,23 +191,7 @@ function App() {
                 email={email}
                 onLogOut={onLogOut} />
                 <Routes>
-                    <Route
-                    path="/"
-                    element={
-                        <ProtectedRoute
-                    exact path="/"
-                    logIn={logIn}
-                    component={Main}
-                    onEditAvatar={handleEditAvatarClick}
-                    onEditProfile={handleEditProfileClick}
-                    onAddPlace={handleAddPlaceClick}
-                    onCardClick={handleCardClick}
-                    onCardLike={handleCardLike}
-                    onCardDelete={handleCardDelete}
-                    cards={cards} />
-                    }/>
-                    
-                    <Route
+                <Route
                     path="sign-up"
                     element={
                         <Register
@@ -214,6 +208,24 @@ function App() {
                             isOpen={isEditProfilePopupOpen}
                             onAuth={handleAuth}/>
                         } />
+
+                    <Route
+                    path="/"
+                    element={
+                        <ProtectedRoute
+                    exact path="/"
+                    logIn={logIn}
+                    component={Main}
+                    onEditAvatar={handleEditAvatarClick}
+                    onEditProfile={handleEditProfileClick}
+                    onAddPlace={handleAddPlaceClick}
+                    onCardClick={handleCardClick}
+                    onCardLike={handleCardLike}
+                    onCardDelete={handleCardDelete}
+                    cards={cards} />
+                    }/>
+                    
+
                     </Routes>
                 <Footer />
 
