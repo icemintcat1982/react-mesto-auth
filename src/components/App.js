@@ -151,7 +151,7 @@ function App() {
         .catch((err) => {
             console.log(err)
         })
-    }, [handleTokenCheck]);
+    }, [logIn, handleTokenCheck]);
 
 
 
@@ -174,7 +174,7 @@ function App() {
             .then ((res) => {
                 setEmail(res.data.email)
                 setLogIn(true)
-                navigate.push('/')
+                navigate('/')
             })
         })
             .catch((err) => {
@@ -215,7 +215,7 @@ function App() {
                         <ProtectedRoute
                     exact path="/"
                     logIn={logIn}
-                    component={Main}
+                    element={Main}
                     onEditAvatar={handleEditAvatarClick}
                     onEditProfile={handleEditProfileClick}
                     onAddPlace={handleAddPlaceClick}
