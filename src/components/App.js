@@ -13,22 +13,19 @@ import Login from "./Login";
 import Register from "./Register";
 import ProtectedRoute from "./ProtectedRoute";
 import InfoTooltip from "./InfoTooltip";
-import * as auth from '../utils/auth';
-import success from '../images/success.png';
-import fail from '../images/fail.png';
+import * as auth from "../utils/auth";
+import success from "../images/success.png";
+import fail from "../images/fail.png";
 
 function App() {
-
     const navigate = useNavigate();
 
     const [logIn, setLogIn] = useState(false);
-    const [email, setEmail] = useState('');
+    const [email, setEmail] = useState("");
     const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
-    const [message, setMessage] = useState({ imgResult: '', text: ''});
-    const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] =
-        useState(false);
-    const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] =
-       useState(false);
+    const [message, setMessage] = useState({ imgResult: "", text: "" });
+    const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
+    const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
     const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
     const [selectedCard, setSelectedCard] = useState({});
     const [cards, setCards] = useState([]);
@@ -51,9 +48,9 @@ function App() {
     };
 
     const onLogOut = () => {
-        localStorage.removeItem('jwt')
-        setLogIn(false)
-    }
+        localStorage.removeItem("jwt");
+        setLogIn(false);
+    };
 
     const closeAllPopups = () => {
         setIsEditAvatarPopupOpen(false);
@@ -65,12 +62,13 @@ function App() {
 
     const handleCardLike = (card) => {
         const isLiked = card.likes.some((i) => i._id === currentUser._id);
-        api.changeLikeCardStatus(card._id, !isLiked).then((newCard) => {
-            setCards((state) =>
-                state.map((с) => (с._id === card._id ? newCard : с))
-            );
-        })
-        .catch((err) => console.log(err));
+        api.changeLikeCardStatus(card._id, !isLiked)
+            .then((newCard) => {
+                setCards((state) =>
+                    state.map((с) => (с._id === card._id ? newCard : с))
+                );
+            })
+            .catch((err) => console.log(err));
     };
 
     const handleCardDelete = (card) => {
@@ -79,7 +77,6 @@ function App() {
                 setCards(cards.filter((element) => element._id !== card._id));
             })
             .catch((err) => console.log(err));
-
     };
 
     const onUpdateUser = ({ name, about }) => {
@@ -109,8 +106,6 @@ function App() {
             .catch((err) => console.log(err));
     };
 
-
-
     React.useEffect(() => {
         Promise.all([api.getCards(), api.getUserInfo()])
             .then(([cardsData, data]) => {
@@ -119,132 +114,123 @@ function App() {
             })
             .catch((err) => {
                 console.log(err);
-                
             });
     }, []);
 
     const handleTokenCheck = useCallback(() => {
-        const jwt = localStorage.getItem('jwt');
-        if(jwt) {
-           auth.getContent(jwt)
-           .then((userData) => {
-               if(userData) {
-                   setLogIn(true)
-                   setEmail(userData.data.email)
-                   navigate('/', { replace: true });
-               }
-           })
-           .catch((err) => {
-               console.log(err);
-        })
-           }
-       }, [navigate])
+        const jwt = localStorage.getItem("jwt");
+        if (jwt) {
+            auth.getContent(jwt)
+                .then((userData) => {
+                    if (userData) {
+                        setLogIn(true);
+                        setEmail(userData.data.email);
+                        navigate("/", { replace: true });
+                    }
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        }
+    }, [navigate]);
 
     useEffect(() => {
         handleTokenCheck();
-        logIn && 
-        Promise.all([api.getUserInfo(), api.getCards()])
-        .then(([userData, cardsData]) => {
-            setCurrentUser(userData);
-            setCards(cardsData);
-        })
-        .catch((err) => {
-            console.log(err)
-        })
+        logIn &&
+            Promise.all([api.getUserInfo(), api.getCards()])
+                .then(([userData, cardsData]) => {
+                    setCurrentUser(userData);
+                    setCards(cardsData);
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
     }, [logIn, handleTokenCheck]);
 
-
-
-    const handleRegist = (password, email) => {
-        auth.register(password, email)
-        .then((res) => {
-            setEmail(res.data.email)
-            setMessage({ imgResult: success, text: "Вы успешно зарегистрировались!"})    
-        })
-        .catch(() => 
-        setMessage({ imgResult: fail, text: "Что-то пошло не так! Попробуйте еще раз."}))
-        .finally(() => 
-        setIsInfoTooltipOpen(true))
-    }
-
-
-
-    const handleAuth = (password, email) => {
-        auth.authorization(password, email)
-        .then((token) => {
-            auth.getContent(token)
-            .then ((data) => {
-                setEmail(data.email)
-                setLogIn(true)
-                navigate('/')
+    const handleRegist = (email, password) => {
+        auth.register(email, password)
+            .then((res) => {
+                setEmail(res.data.email);
+                setMessage({
+                    imgResult: success,
+                    text: "Вы успешно зарегистрировались!",
+                });
             })
-        })
+            .catch(() =>
+                setMessage({
+                    imgResult: fail,
+                    text: "Что-то пошло не так! Попробуйте еще раз.",
+                })
+            )
+            .finally(() => setIsInfoTooltipOpen(true));
+    };
+
+    const handleAuth = (email, password) => {
+        auth.authorization(email, password)
+            .then((token) => {
+                auth.getContent(token).then((data) => {
+                    setEmail(data.email);
+                    setLogIn(true);
+                    navigate("/");
+                });
+            })
             .catch((err) => {
-                console.log(err)
+                console.log(err);
             });
 
-    // const handleLogOut =() => {
-    //     setLogIn(false)
-    //     localStorage.removeItem('jwt')
-    //     navigate('sign-in', { replace: true })
-    //     setEmail('')
-    //     setLogIn('')
-    // }
- 
-
-    }
+        // const handleLogOut =() => {
+        //     setLogIn(false)
+        //     localStorage.removeItem('jwt')
+        //     navigate('sign-in', { replace: true })
+        //     setEmail('')
+        //     setLogIn('')
+        // }
+    };
     return (
-   
         <CurrentUserContext.Provider value={currentUser}>
             <div className="page">
-                <Header
-                logIn={logIn}
-                email={email}
-                onLogOut={onLogOut} />
+                <Header logIn={logIn} email={email} onLogOut={onLogOut} />
                 <Routes>
-                <Route
-                    path="sign-up"
-                    element={
-                        <Register
-                        name="regist"
-                        onRegist={handleRegist}/>
-                    } />
-
-                    
                     <Route
-                    path="sign-in"
+                        path="sign-up"
                         element={
-                            <Login
-                            name="login"
-                            onAuth={handleAuth}/>
-                        } />
+                            <Register name="regist" onRegist={handleRegist} />
+                        }
+                    />
 
                     <Route
-                    path="/"
-                    element={
-                        <ProtectedRoute
-                    exact path="/"
-                    logIn={logIn}
-                    element={Main}
-                    onEditAvatar={handleEditAvatarClick}
-                    onEditProfile={handleEditProfileClick}
-                    onAddPlace={handleAddPlaceClick}
-                    onCardClick={handleCardClick}
-                    onCardLike={handleCardLike}
-                    onCardDelete={handleCardDelete}
-                    cards={cards} />
-                    }/>
-                    
+                        path="sign-in"
+                        element={<Login name="login" onAuth={handleAuth} />}
+                    />
 
-                    </Routes>
+                    <Route
+                        path="/"
+                        element={
+                            <ProtectedRoute
+                                exact
+                                path="/"
+                                logIn={logIn}
+                                element={Main}
+                                onEditAvatar={handleEditAvatarClick}
+                                onEditProfile={handleEditProfileClick}
+                                onAddPlace={handleAddPlaceClick}
+                                onCardClick={handleCardClick}
+                                onCardLike={handleCardLike}
+                                onCardDelete={handleCardDelete}
+                                cards={cards}
+                            />
+                        }
+                    />
+                </Routes>
                 <Footer />
 
                 <InfoTooltip
-                name="tooltip"
-                isOpen={isInfoTooltipOpen}
-                onClose={closeAllPopups}
-                title={message.text}
-                imgResult={message.imgResult} />
+                    name="tooltip"
+                    isOpen={isInfoTooltipOpen}
+                    onClose={closeAllPopups}
+                    title={message.text}
+                    imgResult={message.imgResult}
+                />
 
                 <EditProfilePopup
                     isOpen={isEditProfilePopupOpen}

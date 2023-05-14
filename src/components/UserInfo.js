@@ -5,12 +5,14 @@ function UserInfo({ logIn, email, onLogOut }) {
         <div className="header__info">
             <p className="header__email">{email}</p>
             <Link
-            to="sign-up"
-            className={`header__link ${logIn && 'header__link_active'}`}
-            onClick={onLogOut}>Выйти</Link>
+                to="sign-up"
+                className={`header__link ${logIn && "header__link_active"}`}
+                onClick={onLogOut}
+            >
+                Выйти
+            </Link>
         </div>
-
-    )
+    );
 }
 
-export default UserInfo
+export default UserInfo;
