@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { Route, Routes, useNavigate, Navigate } from "react-router-dom";
 import { api } from "../utils/Api";
 import Footer from "./Footer";
 import Header from "./Header";
@@ -167,12 +167,14 @@ function App() {
         setIsInfoTooltipOpen(true))
     }
 
+
+
     const handleAuth = (password, email) => {
         auth.authorization(password, email)
         .then((token) => {
             auth.getContent(token)
-            .then ((res) => {
-                setEmail(res.data.email)
+            .then ((data) => {
+                setEmail(data.email)
                 setLogIn(true)
                 navigate('/')
             })
@@ -180,10 +182,19 @@ function App() {
             .catch((err) => {
                 console.log(err)
             });
+
+    // const handleLogOut =() => {
+    //     setLogIn(false)
+    //     localStorage.removeItem('jwt')
+    //     navigate('sign-in', { replace: true })
+    //     setEmail('')
+    //     setLogIn('')
+    // }
  
 
     }
     return (
+   
         <CurrentUserContext.Provider value={currentUser}>
             <div className="page">
                 <Header
@@ -195,9 +206,8 @@ function App() {
                     path="sign-up"
                     element={
                         <Register
-                        isOpen={isEditProfilePopupOpen}
-                        onRegister={handleRegist}
-                        isInfoTooltipOpen={isInfoTooltipOpen}/>
+                        name="regist"
+                        onRegist={handleRegist}/>
                     } />
 
                     
@@ -205,7 +215,7 @@ function App() {
                     path="sign-in"
                         element={
                             <Login
-                            isOpen={isEditProfilePopupOpen}
+                            name="login"
                             onAuth={handleAuth}/>
                         } />
 
