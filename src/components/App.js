@@ -250,8 +250,6 @@ function App() {
                 />
 
                 <ImagePopup card={selectedCard} onClose={closeAllPopups} />
-
-                <template id="element__card"></template>
             </div>
         </CurrentUserContext.Provider>
     );
