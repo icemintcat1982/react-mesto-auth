@@ -167,13 +167,14 @@ function App() {
 
     const handleAuth = (email, password) => {
         auth.authorization(email, password)
-            .then((token) => {
-                auth.getContent(token).then((data) => {
-                    setEmail(data.email);
+            .then((data) => {
+                if (data.token) {
+                    setEmail(email);
                     setLogIn(true);
+                    localStorage.setItem('jwt', data.token)
                     navigate("/");
-                });
-            })
+                }
+                })
             .catch((err) => {
                 console.log(err);
             });

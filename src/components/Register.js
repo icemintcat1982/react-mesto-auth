@@ -16,7 +16,7 @@ function Register({ onRegist }) {
     };
     const handleSumbit = (evt) => {
         evt.preventDefault();
-        onRegist(formValue);
+        onRegist(formValue.email, formValue.password);
     };
 
     return (

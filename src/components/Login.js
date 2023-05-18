@@ -12,7 +12,7 @@ function Login({ onAuth }) {
 
     function handleSumbit(evt) {
         evt.preventDefault();
-        onAuth(password, email);
+        onAuth(email, password);
     }
 
     return (
