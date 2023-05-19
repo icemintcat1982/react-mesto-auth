@@ -169,8 +169,9 @@ function App() {
         auth.authorization(email, password)
             .then((data) => {
                 if (data.token) {
-                    setEmail(email);
                     setLogIn(true);
+                    setEmail(email);
+                 
                     localStorage.setItem('jwt', data.token)
                     navigate("/");
                 }

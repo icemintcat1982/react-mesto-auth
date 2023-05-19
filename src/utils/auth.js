@@ -5,7 +5,7 @@ export const checkResult = (res) => {
         return res.json();
     }
     return Promise.reject(`Ошибка: ${res.status}`);
-}
+};
 
 export const register = (email, password) => {
     return fetch(`${BASE_URL}signup`, {
@@ -15,8 +15,7 @@ export const register = (email, password) => {
             "Content-Type": "application/json",
         },
         body: JSON.stringify({ email, password }),
-    })
-    .then((res) => checkResult(res));
+    }).then((res) => checkResult(res));
 };
 
 export const authorization = (email, password) => {
@@ -27,8 +26,7 @@ export const authorization = (email, password) => {
             "Content-Type": "application/json",
         },
         body: JSON.stringify({ email, password }),
-    })
-    .then((res) => checkResult(res));
+    }).then((res) => checkResult(res));
 };
 
 export const getContent = (token) => {
@@ -39,6 +37,5 @@ export const getContent = (token) => {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
         },
-    })
-    .then((res) => checkResult(res));
-}
+    }).then((res) => checkResult(res));
+};

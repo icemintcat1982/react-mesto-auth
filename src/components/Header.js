@@ -9,45 +9,45 @@ function Header({ logIn, onLogOut, email, isOpen, onClose, menuText }) {
             <img className="logo logo_place_header" src={Logo} alt="Место" />
             <Routes>
                 <Route
-                path="/"
-                element={
-                    <UserInfo
-                    logIn={logIn}
-                    onLogOut={onLogOut}
-                    userMail={email}
-                    isOpen={isOpen}
-                    onClose={onClose}
-                    menuText="Выйти"
+                    path="/"
+                    element={
+                        <UserInfo
+                            logIn={logIn}
+                            onLogOut={onLogOut}
+                            userEmail={email}
+                            isOpen={isOpen}
+                            onClose={onClose}
+                            menuText="Выйти"
+                        />
+                    }
                 />
-                } />
 
-<Route
-                path="sign-up"
-                element={
-                    <UserInfo
-                    logIn={logIn}
-                    onLogOut={onLogOut}
-                    userMail={email}
-                    isOpen={isOpen}
-                    onClose={onClose}
-                    menuText="Регистрация"
+                <Route
+                    path="sign-up"
+                    element={
+                        <UserInfo
+                            logIn={logIn}
+                            onLogOut={onLogOut}
+                            isOpen={isOpen}
+                            onClose={onClose}
+                            menuText="Регистрация"
+                        />
+                    }
                 />
-                } />
 
-<Route
-                path="sign-in"
-                element={
-                    <UserInfo
-                    logIn={logIn}
-                    onLogOut={onLogOut}
-                    userMail={email}
-                    isOpen={isOpen}
-                    onClose={onClose}
-                    menuText="Войти"
+                <Route
+                    path="sign-in"
+                    element={
+                        <UserInfo
+                            logIn={logIn}
+                            onLogOut={onLogOut}
+                            isOpen={isOpen}
+                            onClose={onClose}
+                            menuText="Войти"
+                        />
+                    }
                 />
-                } />
             </Routes>
-
         </header>
     );
 }
