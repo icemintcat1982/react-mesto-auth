@@ -30,13 +30,14 @@ function Main({
 
                 <div className="profile__info">
                     <h1 className="profile__name">{currentUser.name}</h1>
+
+                    <p className="profile__description">{currentUser.about}</p>
                     <button
                         className="profile__button profile__button_type_edit"
                         type="button"
                         title="edit profile"
                         onClick={onEditProfile}
                     ></button>
-                    <p className="profile__description">{currentUser.about}</p>
                 </div>
 
                 <button

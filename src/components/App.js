@@ -178,15 +178,8 @@ function App() {
             .catch((err) => {
                 console.log(err);
             });
-
-        // const handleLogOut =() => {
-        //     setLogIn(false)
-        //     localStorage.removeItem('jwt')
-        //     navigate('sign-in', { replace: true })
-        //     setEmail('')
-        //     setLogIn('')
-        // }
     };
+
     return (
         <CurrentUserContext.Provider value={currentUser}>
             <div className="page">

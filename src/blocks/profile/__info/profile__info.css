@@ -1,7 +1,7 @@
 .profile__info {
-    display: flex;
+    /* display: flex;
     align-items: center;
-    flex-wrap: wrap;
+    flex-wrap: wrap; */
     margin: 0;
     margin-left: 30px;
 }
